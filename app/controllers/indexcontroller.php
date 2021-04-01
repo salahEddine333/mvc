@@ -2,10 +2,12 @@
 
 namespace MVC\CONTROLLERS;
 
-class IndexController {
 
-  public function addAction() {
+class IndexController extends AbstractController {
 
+
+  public function defaultAction() {
+    echo "welcom to index class from default action";
   }
 
 }

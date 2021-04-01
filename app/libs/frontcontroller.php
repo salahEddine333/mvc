@@ -33,7 +33,21 @@ class FrontController {
 
   public function dispatch() {
     $controllerClassName = "\MVC\CONTROLLERS\\" . ucfirst($this->controller) . "Controller";
-    var_dump(class_exists($controllerClassName));
+    // \MVC\CONTROLLERS\OfferController
+    $methodName = $this->action . "Action";
+    if(!class_exists($controllerClassName)) {
+      $this->controller = "error";
+      $controllerClassName = "\MVC\CONTROLLERS\\" . ucfirst($this->controller) . "Controller";
+    // \MVC\CONTROLLERS\ErrorController
+      $this->action = "notfound";
+      $methodName = $this->action . "Action";
+    }
+    $objectControllerClassName = new $controllerClassName();
+    if(!method_exists($objectControllerClassName, $methodName)) {
+      $this->action = "notfound";
+      $methodName = $this->action . "Action";
+    }
+    $objectControllerClassName->$methodName();
   }
 
 }

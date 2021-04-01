@@ -2,10 +2,10 @@
 
 namespace MVC\CONTROLLERS;
 
-class EmployeeController {
+class EmployeeController extends AbstractController {
 
-  public function addAction() {
-
+  public function defaultAction() {
+    echo "welcom to employee class from default action";
   }
 
 }
