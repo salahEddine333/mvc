@@ -30,7 +30,6 @@ class FrontController {
 
   }
 
-
   public function dispatch() {
     $controllerClassName = "\MVC\CONTROLLERS\\" . ucfirst($this->controller) . "Controller";
     // \MVC\CONTROLLERS\OfferController
@@ -44,9 +43,13 @@ class FrontController {
     }
     $objectControllerClassName = new $controllerClassName();
     if(!method_exists($objectControllerClassName, $methodName)) {
+      $this->controller = "error";
+      $controllerClassName = "\MVC\CONTROLLERS\\" . ucfirst($this->controller) . "Controller";
       $this->action = "notfound";
       $methodName = $this->action . "Action";
     }
+    $objectControllerClassName->setController($this->controller);
+    $objectControllerClassName->setView($this->action);
     $objectControllerClassName->$methodName();
   }
 
