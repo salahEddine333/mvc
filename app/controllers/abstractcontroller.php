@@ -6,6 +6,19 @@ class AbstractController {
 
   private $_controller;
   private $_view;
+  protected $modelHandler;
+
+  public function __construct()
+  {
+    $this->getObjectFromExceptModel();
+  }
+
+  private function getObjectFromExceptModel() {
+    if(isset(static::$modelClassName)) {
+      $classModelName = "\MVC\MODELS\\" . static::$modelClassName;
+       $this->modelHandler = new $classModelName();
+    }
+  }
 
   public function setController($controller) {
     $this->_controller = $controller;

@@ -14,7 +14,7 @@ class DatabaseHandler {
         \PDO::ATTR_ERRMODE            => \PDO::ERRMODE_EXCEPTION
       ]);
     } catch(\PDOException $e) {
-      return $e->getMessage();
+      self::$handler = $e->getMessage();
     }
   }
 
