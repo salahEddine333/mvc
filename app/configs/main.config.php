@@ -14,5 +14,5 @@ define("DBNAME", "mvcdb");
 
 define("USER_NAME", "root");
 
-define("USER_PASS", "la2ilahaIlaAlah");
+define("USER_PASS", "");
 
