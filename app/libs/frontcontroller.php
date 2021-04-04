@@ -7,9 +7,11 @@ class FrontController {
   private $controller = "index";
   private $action = "default";
   private $params = [];
+  private $templates;
 
-  public function __construct()
+  public function __construct($templates)
   {
+    $this->templates = $templates;
     $this->parseUrl();
   }
 
@@ -50,6 +52,8 @@ class FrontController {
     }
     $objectControllerClassName->setController($this->controller);
     $objectControllerClassName->setView($this->action);
+    $objectControllerClassName->setTemplates($this->templates);
+    $objectControllerClassName->setParams($this->params);
     $objectControllerClassName->$methodName();
   }
 

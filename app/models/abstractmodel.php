@@ -37,5 +37,38 @@ class AbstractModel {
       return $e->getMessage();
     }
   }
+
+  public function update() {
+    try {
+      $key = static::$pk;
+      $str_request = "UPDATE " . static::$tableName . " SET " . $this->mapTableFields() . " WHERE $key = " . $this->{$key};
+      $stmt = self::$dbHandler->prepare($str_request);
+      $excuteArray = [];
+      foreach(static::$tableFields as $field) {
+        array_push($excuteArray, $this->$field);
+      }
+      return $stmt->execute($excuteArray);
+    } catch(\PDOException $e) {
+
+      return $e->getMessage();
+
+    }
+  }
+
+  public function delete() {
+    try {
+      $str_request = "DELETE FROM " . static::$tableName . " WHERE ";
+      $str_request.=  static::$pk . " = ?";
+      $execution = [
+        $this->{static::$pk}
+      ];
+      $stmt = self::$dbHandler->prepare($str_request);
+      return $stmt->execute($execution);
+    } catch(\PDOException $ex) {
+
+      return $ex->getMessage();
+
+    }
+  }
   
 }

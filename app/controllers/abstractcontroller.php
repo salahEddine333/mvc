@@ -4,9 +4,11 @@ namespace  MVC\CONTROLLERS;
 
 class AbstractController {
 
-  private $_controller;
-  private $_view;
+  private $controller;
+  private $view;
   protected $modelHandler;
+  private $templates;
+  private $datas;
 
   public function __construct()
   {
@@ -21,11 +23,19 @@ class AbstractController {
   }
 
   public function setController($controller) {
-    $this->_controller = $controller;
+    $this->controller = $controller;
   }
 
   public function setView($view) {
-    $this->_view = $view;
+    $this->view = $view;
+  }
+
+  public function setTemplates($templates) {
+    $this->templates = $templates;
+  }
+
+  public function setParams($params) {
+    $this->params = $params;
   }
 
   public function notfoundAction() {
@@ -33,9 +43,15 @@ class AbstractController {
   }
 
   public function view() {
-    $view = VIEWS . DS . $this->_controller . DS . $this->_view . ".view.php";
-    if(file_exists($view)) {
-      include $view;
+    $viewDir = VIEWS . DS . $this->controller;
+    if(is_dir($viewDir)) {
+      $viewFile = $viewDir . DS . $this->view . ".view.php";
+      if(file_exists($viewFile)) {
+        $templateObject = new \BLANCER\LIB\Template($this->templates);
+        $templateObject->setView($viewFile);
+        $templateObject->setDatas($this->datas);
+        $templateObject->renderApp();
+      }
     }
   }
   

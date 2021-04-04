@@ -22,4 +22,18 @@ class UserController extends AbstractController {
     var_dump($model->insert());
   }
 
+  public function updateAction() {
+    $model = $this->modelHandler;
+    $model->username = "userTest";
+    $model->password = sha1("789");
+    $model->user_id = 2;
+    var_dump($model->update());
+  }
+
+  public function deleteAction() {
+    $model = $this->modelHandler;
+    $model->user_id = 2;
+    var_dump($model->delete());
+  }
+
 }
