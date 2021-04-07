@@ -47,7 +47,7 @@ class AbstractController {
     if(is_dir($viewDir)) {
       $viewFile = $viewDir . DS . $this->view . ".view.php";
       if(file_exists($viewFile)) {
-        $templateObject = new \BLANCER\LIB\Template($this->templates);
+        $templateObject = new \MVC\LIBS\Template($this->templates);
         $templateObject->setView($viewFile);
         $templateObject->setDatas($this->datas);
         $templateObject->renderApp();

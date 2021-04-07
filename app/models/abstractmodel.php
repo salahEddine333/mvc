@@ -70,5 +70,18 @@ class AbstractModel {
 
     }
   }
+
+  public function getAll() {
+    $pk = isset(static::$pk) ? static::$pk . ", ": "";
+    $str_request = "SELECT " . $pk;
+    foreach(static::$tableFields as $column) {
+      $str_request.= "$column, ";
+    }
+    $str_request = trim($str_request, ", ") . " FROM " . static::$tableName;
+    $stmt = self::$dbHandler->prepare($str_request);
+    if($stmt->execute()) {
+      return $stmt->fetchAll(\PDO::FETCH_CLASS, get_called_class());
+    }
+  }
   
 }

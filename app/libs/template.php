@@ -1,6 +1,6 @@
 <?php
 
-namespace BLANCER\LIB;
+namespace MVC\LIBS;
 
 class Template {
   private $templates;
@@ -86,7 +86,9 @@ class Template {
 
   private function renderView() {
     if(!is_null($this->view)) {
-      extract($this->datas);
+      if(!empty($this->datas)) {
+        extract($this->datas);
+      }
       require $this->view;
     }
     return false;

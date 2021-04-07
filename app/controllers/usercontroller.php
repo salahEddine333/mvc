@@ -36,4 +36,9 @@ class UserController extends AbstractController {
     var_dump($model->delete());
   }
 
+  public function getAction() {
+    $model = $this->modelHandler;
+    var_dump($model->getAll());
+  }
+
 }
